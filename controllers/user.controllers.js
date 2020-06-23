@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
     if (err) {
       return res.status(404).json({
         success: false,
-        message: 'Something wrong',
+        message: 'Something went wrong',
       });
     }
     return res.status(200).json({
@@ -24,10 +24,10 @@ exports.getById = async (req, res) => {
   User.getById(req.params.id, (err, result) => {
     if (err) {
       return res.status(404).json({
-        message: 'Something wrong',
+        message: 'Something went wrong',
       });
     }
-    return res.json({
+    return res.status(200).json({
       success: true,
       data: result,
     });
@@ -36,11 +36,11 @@ exports.getById = async (req, res) => {
 
 exports.insertUser = async (req, res) => {
   // Validate
-  const {errValidate} = validation.insertValidation(req.body);
-  if (errValidate) {
-    res.json({
+  const {error} = validation.insertValidation(req.body);
+  if (error) {
+    res.status(403).json({
       success: false,
-      error: errValidate.details[0].message,
+      error: error.details[0].message,
     });
   }
   // Password encryption
@@ -57,11 +57,11 @@ exports.insertUser = async (req, res) => {
   User.insertUser(data, (err, result) => {
     if (err) {
       res.status(404).json({
-        message: 'Something wrong',
+        message: 'Something went wrong',
       });
     }
     return res.json({
-	  status: 'success',
+	  status: 'Success',
 	  message: 'User create successfully',
       data: result,
     });
@@ -73,12 +73,12 @@ exports.removeUser = async (req, res) => {
     if (err) {
 	  return res.json({
 		  success: false,
-		  message: 'something wrong',
+		  message: 'Something went wrong',
 	  });
     }
     return res.json({
 	  success: true,
-	  message: 'delete successfully',
+	  message: 'Delete successfully',
 	  dat: result,
     });
   });

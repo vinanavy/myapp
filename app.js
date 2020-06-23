@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const path = require('path');
+// const path = require('path');
 const app = express();
 
 // Middleware
@@ -11,8 +11,13 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
 
 // Set view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+
+// Define root raaouter
+app.get('/index', (req, res) => {
+  res.send('Hello World With NodeJS');
+});
 
 // Require user route
 const userRouter = require('./routes/user.routes');

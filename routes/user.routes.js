@@ -2,6 +2,7 @@
 /* eslint-disable new-cap */
 const router = require('express').Router();
 const {checkToken} = require('../validations/token.validations');
+// const {addUserValidate} = require('../validations/user.validations.js');
 const {
   getAll,
   getById,
