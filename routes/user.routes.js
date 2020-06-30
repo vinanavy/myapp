@@ -2,7 +2,7 @@
 /* eslint-disable new-cap */
 const router = require('express').Router();
 const {checkToken} = require('../validations/token.validations');
-// const {addUserValidate} = require('../validations/user.validations.js');
+const {addUserValidation} = require('../validations/user.validations');
 const {
   getAll,
   getById,
@@ -12,7 +12,7 @@ const {
 
 router.get('/', checkToken, getAll);
 router.get('/:id', checkToken, getById);
-router.post('/', checkToken, insertUser);
+router.post('/', checkToken, addUserValidation, insertUser);
 router.delete('/:id', checkToken, removeUser);
 
 module.exports = router;

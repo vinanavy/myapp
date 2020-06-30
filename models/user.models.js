@@ -1,3 +1,5 @@
+/* eslint-disable no-tabs */
+/* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 const db = require('../config/db.config');
@@ -20,8 +22,9 @@ class User {
   static getById(id, result) {
     db.query('select * from users where id = ' + db.escape(id),
         (err, res) => {
-          if (err) result(err, null);
-          else result(null, res);
+		  if (err) result(err, null);
+		  if (res.length) result(null, res[0]);
+		  result({kind: 'not found'}, null);
         });
   };
 
