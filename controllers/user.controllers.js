@@ -74,15 +74,15 @@ exports.insertUser = async (req, res) => {
 exports.removeUser = async (req, res) => {
   User.removeUser(req.params.id, (err, result) => {
     if (err) {
-	  return res.json({
-        success: false,
-        message: 'Something went wrong',
-	  });
-    }
-    return res.json({
-	  success: true,
-	  message: 'Delete successfully',
-	  dat: result,
-    });
+      if (err.kind === 'not found') {
+        res.status(404).send({
+		  message: `not found user with id ${req.params.id}`,
+        });
+	  } else {
+        res.status(500).send({
+		  message: 'could not delete user with id ' + req.params.id,
+        });
+	  }
+    } else res.send({message: `user was deleted successfully`});
   });
 };

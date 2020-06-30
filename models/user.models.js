@@ -47,9 +47,13 @@ class User {
     db.query('delete from users where id = ' + db.escape(id), (err, res) => {
       if (err) {
         result(err, null);
-      } else {
-        result(null, res);
-      }
+        return;
+	  }
+	  if (res.affectedRows == 0) {
+        result({kind: 'not found'}, null);
+        return;
+	  }
+	  result(null, res);
     });
   }
 };
