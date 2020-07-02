@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable space-before-blocks */
 /* eslint-disable no-tabs */
 /* eslint-disable no-mixed-spaces-and-tabs */
@@ -38,36 +39,33 @@ exports.getById = async (req, res) => {
 };
 
 exports.insertUser = async (req, res) => {
-  // Validate
-//   const {error} = validation.insertValidation(req.body);
-//   if (error) {
-//     res.status(403).json({
-//       success: false,
-//       error: error.details[0].message,
-//     });
-//   }
   // Password encryption
   const salt = await bcrypt.genSalt(10);
   const hashPass = await bcrypt.hash(req.body.password, salt);
 
   const data = {
-    'id': req.body.id,
-    'username': req.body.username,
-    'password': hashPass,
-    'email': req.body.email,
-    'roleId': req.body.roleId,
+  	'id': req.body.id,
+  	'username': req.body.username,
+  	'password': hashPass,
+  	'email': req.body.email,
+  	'roleId': req.body.roleId,
   };
   User.insertUser(data, (err, result) => {
-    if (err) {
-      res.status(404).json({
-        message: 'Something went wrong',
-      });
-    }
-    return res.json({
-	  status: 'Success',
+  	if (err) {
+  	  return res.status(500).json({
+  		message: 'Something went wrong',
+	  });
+	}
+	if (result.length > 0) {
+	  return res.status(404).json({
+		message: 'Username already exist',
+	  });
+	}
+  	return res.json({
+  	  status: 'Success',
 	  message: 'User create successfully',
-      data: result,
-    });
+	  data: result.insertId,
+  	});
   });
 };
 

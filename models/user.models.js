@@ -22,8 +22,14 @@ class User {
   static getById(id, result) {
     db.query('select * from users where id = ' + db.escape(id),
         (err, res) => {
-		  if (err) result(err, null);
-		  if (res.length) result(null, res[0]);
+		  if (err) {
+            result(err, null);
+            return;
+		  }
+		  if (res.length) {
+            result(null, res[0]);
+            return;
+		  }
 		  result({kind: 'not found'}, null);
         });
   };
@@ -38,8 +44,11 @@ class User {
 
   static insertUser(newUser, result) {
     db.query('insert into users set ? ', newUser, (err, res) => {
-      if (err) result(err, null);
-      else result(null, res);
+      if (err) {
+        result(err, null);
+        return;
+	  }
+      result(null, res);
     });
   };
 
