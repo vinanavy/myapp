@@ -28,7 +28,8 @@ exports.login = async (req, res) => {
         message: 'Password wrong',
       });
     }
-    const token = jwt.sign({username: username}, process.env.JWTSECRETKEY, {expiresIn: '24h'});
+    const token = jwt.sign({username: username}, process.env.JWT_SECRET_KEY,
+        {expiresIn: process.env.JWT_LIFE});
     return res.json({
       status: true,
       message: 'Login successfully',

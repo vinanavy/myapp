@@ -6,9 +6,9 @@ module.exports = {
   checkToken: (req, res, next) => {
     const token = req.header('authentication');
     if (token) {
-      jwt.verify(token, process.env.JWTSECRETKEY, (err, decode) => {
+      jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decode) => {
         if (err) {
-          return res.json({
+          return res.status(401).json({
             success: false,
             message: 'Token incorrect!!!',
           });
@@ -18,7 +18,7 @@ module.exports = {
         }
       });
     } else {
-      return res.json({
+      return res.status(403).json({
         success: false,
         message: 'Auth token is not supplied!!!',
       });

@@ -3,10 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 // const path = require('path');
+const cors = require('cors');
 const app = express();
 
 // Middleware
 app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
 
@@ -14,9 +16,9 @@ app.use(express.urlencoded({extended: false}));
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
 
-// Define root raaouter
+// Define root router
 app.get('/index', (req, res) => {
-  res.send('Hello World With NodeJS');
+  res.send('Consume NodeJs API with ReactJs');
 });
 
 // Require user route

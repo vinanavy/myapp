@@ -53,15 +53,10 @@ exports.insertUser = async (req, res) => {
   User.insertUser(data, (err, result) => {
   	if (err) {
   	  return res.status(500).json({
-  		message: 'Something went wrong',
+  		message: 'Username or email already exist',
 	  });
 	}
-	if (result.length > 0) {
-	  return res.status(404).json({
-		message: 'Username already exist',
-	  });
-	}
-  	return res.json({
+  	return res.status(201).json({
   	  status: 'Success',
 	  message: 'User create successfully',
 	  data: result.insertId,
