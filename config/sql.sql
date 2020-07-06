@@ -13,7 +13,9 @@ create table users (
   username varchar(128),
   password varchar(128),
   email varchar(128),
-  roleId int
+  roleId int,
+  createAt timestamp default current_timestamp,
+  updateAt timestamp default current_timestamp,
   foreign key (roleId) references roles (id)
 );
 

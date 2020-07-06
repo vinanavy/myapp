@@ -44,11 +44,10 @@ exports.insertUser = async (req, res) => {
   const hashPass = await bcrypt.hash(req.body.password, salt);
 
   const data = {
-  	'id': req.body.id,
   	'username': req.body.username,
   	'password': hashPass,
   	'email': req.body.email,
-  	'roleId': req.body.roleId,
+	'roleId': req.body.roleId,
   };
   User.insertUser(data, (err, result) => {
   	if (err) {

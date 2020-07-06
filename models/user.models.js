@@ -10,6 +10,9 @@ class User {
     this.username = obj.username;
     this.password = obj.password;
     this.email = obj.email;
+    this.roleId = obj.roleId;
+    this.createAt = Date.now();
+    this.updateAt = Date.now();
   };
 
   static getAll(result) {
@@ -48,7 +51,7 @@ class User {
         result(err, null);
         return;
 	  }
-      result(null, res);
+      result(null, res.insertId);
     });
   };
 

@@ -12,7 +12,7 @@ const {
 
 router.get('/', checkToken, getAll);
 router.get('/:id', checkToken, getById);
-router.post('/', addUserValidation, insertUser);
+router.post('/', addUserValidation, checkToken, insertUser);
 router.delete('/:id', checkToken, removeUser);
 
 module.exports = router;
