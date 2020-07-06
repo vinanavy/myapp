@@ -34,6 +34,7 @@ exports.login = async (req, res) => {
       status: true,
       message: 'Login successfully',
 	  token: token,
+	  data: result,
     });
   });
 };
